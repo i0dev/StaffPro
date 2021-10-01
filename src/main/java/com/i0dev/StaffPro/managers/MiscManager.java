@@ -54,26 +54,19 @@ public class MiscManager extends AbstractManager {
         inventory.setItem(2, armor[1]);
         inventory.setItem(3, armor[0]);
         GeneralConfig cnf = heart.cnf();
-        inventory.setItem(cnf.getExamineEXPIndex(), Utility.makeItem(Material.getMaterial(cnf.getExamineEXPMaterial()), Math.min(who.getTotalExperience(), 64), cnf.getExamineEXPData(), cnf.getExamineEXPTitle()
-                        .replace("{exp}", who.getTotalExperience() + "")
-                , new ArrayList<>(), cnf.isExamineEXPGlow()));
-        inventory.setItem(cnf.getExaminePotionsIndex(), Utility.makeItem(Material.getMaterial(cnf.getExaminePotionsMaterial()), Math.min(getPotionCount(who.getInventory().getContents()), 64), cnf.getExaminePotionsData(), cnf.getExaminePotionsTitle()
-                        .replace("{pots}", getPotionCount(who.getInventory().getContents()) + "")
-                , new ArrayList<>(), cnf.isExaminePotionsGlow()));
-        inventory.setItem(cnf.getExamineHealthIndex(), Utility.makeItem(Material.getMaterial(cnf.getExamineHealthMaterial()), (int) who.getHealth(), cnf.getExamineHealthData(), cnf.getExamineHealthTitle()
-                        .replace("{health}", who.getHealth() + "")
-                , new ArrayList<>(), cnf.isExamineHealthGlow()));
-        inventory.setItem(cnf.getExamineHungerIndex(), Utility.makeItem(Material.getMaterial(cnf.getExamineHungerMaterial()), who.getFoodLevel(), cnf.getExamineHungerData(), cnf.getExamineHungerTitle()
-                        .replace("{hunger}", who.getFoodLevel() + "")
-                , new ArrayList<>(), cnf.isExamineHungerGlow()));
+        inventory.setItem(cnf.getExamineEXPItem().index, Utility.makeItem(cnf.getExamineEXPItem(), new MessageManager.Pair<>("{exp}", who.getTotalExperience() + "")));
+        inventory.setItem(cnf.getExaminePotionsItem().index, Utility.makeItem(cnf.getExaminePotionsItem(), new MessageManager.Pair<>("{pots}", getPotionCount(who.getInventory().getContents()) + "")));
+        inventory.setItem(cnf.getExamineHealthItem().index, Utility.makeItem(cnf.getExamineHealthItem(), new MessageManager.Pair<>("{health}", who.getHealth() + "")));
+        inventory.setItem(cnf.getExamineHungerItem().index, Utility.makeItem(cnf.getExamineHungerItem(), new MessageManager.Pair<>("{hunger}", who.getFoodLevel() + "")));
+
         ItemStack skull = Utility.itemFromBase64(Utility.getDataFromName(who.getName()));
         ItemMeta skullData = skull.getItemMeta();
-        skullData.setDisplayName(Utility.color(cnf.getExamineHeadTitle()
+        skullData.setDisplayName(Utility.color(cnf.getExamineHeadItem().displayName
                 .replace("{displayName}", who.getDisplayName())
 
         ));
         skull.setItemMeta(skullData);
-        inventory.setItem(cnf.getExamineHeadIndex(), skull);
+        inventory.setItem(cnf.getExamineHeadItem().index, skull);
 
         for (int i = 9; i < 18; i++) {
             inventory.setItem(i, Utility.makeItem(Material.STAINED_GLASS_PANE, 1, (short) 15, Utility.color("&a"), new ArrayList<>(), true));

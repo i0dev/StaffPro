@@ -56,6 +56,7 @@ public class Heart extends JavaPlugin {
                 new CmdUnFreeze(this, "unfreeze"),
                 new CmdModMode(this, "modmode"),
                 new CmdStaffPro(this, "staffpro"),
+                new CmdPing(this, "ping"),
                 new CmdVanish(this, "vanish"),
                 new CmdStrip(this, "strip"),
                 new CmdUnVanish(this, "unvanish"),

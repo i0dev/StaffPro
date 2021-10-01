@@ -24,6 +24,8 @@ public class MessageConfig extends AbstractConfiguration {
     String freezeFormat = "&cUsage: &7/freeze <player>";
     String unFreezeFormat = "&cUsage: &7/unfreeze <player>";
     String examineFormat = "&cUsage: &7/examine <player>";
+    String modModeUsage = "&cUsage: &7/modmode <player>";
+    String pingUsage = "&cUsage: &7/ping [player]";
 
     String helpHeader = "&7&m-------&r&7[ &cStaffPro Help &7]&m-------";
 
@@ -60,7 +62,7 @@ public class MessageConfig extends AbstractConfiguration {
     String frozenLoginMessage = "&7You have logged in the server while frozen.";
 
     //modmode
-    String noLongerModMode= "&cYou are no longer in mod mode.";
+    String noLongerModMode = "&cYou are no longer in mod mode.";
     String nowModMode = "&aYou are now in mod mode.";
     String noLongerModModeAnnounce = "&c{player}&7 is no longer in mod mode.";
     String nowModModeAnnounce = "&a{player}&7 has entered mod mode.";
@@ -81,6 +83,7 @@ public class MessageConfig extends AbstractConfiguration {
     String randomTeleported = "&7You have randomly teleported to &c{player}";
 
     //other
+    String pingOf = "&7The ping of &c{player}&7 is &f{ping}ms";
     String reloadedConfig = "&7You have&a reloaded&7 the configuration.";
     String noPermission = "&cYou don not have permission to run that command.";
     String cantFindPlayer = "&cThe player: &f{player}&c cannot be found!";
