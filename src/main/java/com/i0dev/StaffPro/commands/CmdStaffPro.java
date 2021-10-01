@@ -4,7 +4,10 @@ import com.i0dev.StaffPro.Heart;
 import com.i0dev.StaffPro.config.MessageConfig;
 import com.i0dev.StaffPro.managers.MessageManager;
 import com.i0dev.StaffPro.templates.AbstractCommand;
+import com.i0dev.StaffPro.utility.Utility;
+import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +19,7 @@ public class CmdStaffPro extends AbstractCommand {
         super(heart, command);
     }
 
+    @SneakyThrows
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
@@ -29,9 +33,7 @@ public class CmdStaffPro extends AbstractCommand {
                 return;
             }
             getHeart().reload();
-
             heart.msgManager().msg(sender, heart.msg().getReloadedConfig());
-            heart.msgManager().msg(sender, heart.getSPlayerManager().getCache().toString());
             return;
         }
 
@@ -40,6 +42,7 @@ public class CmdStaffPro extends AbstractCommand {
                 heart.msgManager().msg(sender, heart.msg().getNoPermission());
                 return;
             }
+
             heart.msgManager().msg(sender, heart.msg().getHelpHeader());
             heart.msgManager().msg(sender, heart.msg().getReloadUsage());
             heart.msgManager().msg(sender, heart.msg().getVanishUsage());
@@ -49,6 +52,8 @@ public class CmdStaffPro extends AbstractCommand {
             heart.msgManager().msg(sender, heart.msg().getFreezeFormat());
             heart.msgManager().msg(sender, heart.msg().getUnFreezeFormat());
             heart.msgManager().msg(sender, heart.msg().getExamineFormat());
+            heart.msgManager().msg(sender, heart.msg().getModModeUsage());
+            heart.msgManager().msg(sender, heart.msg().getPingUsage());
         }
 
     }

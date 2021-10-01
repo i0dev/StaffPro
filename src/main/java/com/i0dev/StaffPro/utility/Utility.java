@@ -1,17 +1,22 @@
 package com.i0dev.StaffPro.utility;
 
 
+import com.i0dev.StaffPro.managers.MessageManager;
 import com.massivecraft.massivecore.xlib.gson.JsonElement;
 import com.massivecraft.massivecore.xlib.gson.JsonObject;
 import com.massivecraft.massivecore.xlib.gson.JsonParser;
+import lombok.*;
+import me.clip.placeholderapi.libs.kyori.adventure.util.Index;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
@@ -51,6 +56,91 @@ public class Utility {
         item.setItemMeta(meta);
         return item;
     }
+
+    @SafeVarargs
+    public static String pair(String msg, MessageManager.Pair<String, String>... pairs) {
+        for (MessageManager.Pair<String, String> pair : pairs) {
+            msg = msg.replace(pair.getKey(), pair.getValue());
+        }
+        return msg;
+    }
+
+    @SafeVarargs
+    public static ItemStack makeItem(ConfigItem c, MessageManager.Pair<String, String>... pairs) {
+        List<String> lore = new ArrayList<>();
+        c.lore.forEach(s -> lore.add(pair(s, pairs)));
+        String displayName = pair(c.displayName, pairs);
+        ItemStack item = makeItem(Material.getMaterial(c.material), c.amount, c.data, displayName, lore, c.glow);
+        if (c instanceof ColorConfigItem) {
+            LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+            ColorConfigItem cc = (ColorConfigItem) c;
+            meta.setColor(Color.fromRGB(cc.red, cc.blue, cc.green));
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @ToString
+    public static class ConfigItem {
+
+        public String displayName = "";
+        public int amount = 0;
+        public short data = 0;
+        public String material = "";
+        public List<String> lore = new ArrayList<>();
+        public boolean glow = true;
+
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @ToString
+    @Getter
+    @Setter
+    public static class IndexableConfigItem extends ConfigItem {
+
+        public int index = 0;
+
+        public IndexableConfigItem(String displayName, int amount, short data, String material, List<String> lore, boolean glow, int index) {
+            this.displayName = displayName;
+            this.amount = amount;
+            this.data = data;
+            this.material = material;
+            this.lore = lore;
+            this.glow = glow;
+            this.index = index;
+        }
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @ToString
+    @Getter
+    @Setter
+    public static class ColorConfigItem extends ConfigItem {
+
+        public int red = 0;
+        public int blue = 0;
+        public int green = 0;
+
+        public ColorConfigItem(String displayName, int amount, short data, String material, List<String> lore, boolean glow, int red, int blue, int green) {
+            this.displayName = displayName;
+            this.amount = amount;
+            this.data = data;
+            this.material = material;
+            this.lore = lore;
+            this.glow = glow;
+            this.red = red;
+            this.blue = blue;
+            this.green = green;
+        }
+
+    }
+
 
     public static Integer getInt(String s) {
         try {
