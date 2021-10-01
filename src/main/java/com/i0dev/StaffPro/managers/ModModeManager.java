@@ -115,15 +115,17 @@ public class ModModeManager extends AbstractManager {
 
         who.getInventory().setContents(Utility.decrypt(sPlayer.getSavedInventoryContents()));
         who.getInventory().setArmorContents(Utility.decrypt(sPlayer.getSavedArmorContents()));
-        Location location = new Location(Bukkit.getWorld(sPlayer.getSavedLocationWorld()),
-                sPlayer.getSavedLocationX(),
-                sPlayer.getSavedLocationY(),
-                sPlayer.getSavedLocationZ(),
-                sPlayer.getSavedLocationYaw(),
-                sPlayer.getSavedLocationPitch()
-        );
-        who.teleport(location);
 
+        if (heart.cnf().isTeleportPlayerToOGPositionWhenLeaveModMode()) {
+            Location location = new Location(Bukkit.getWorld(sPlayer.getSavedLocationWorld()),
+                    sPlayer.getSavedLocationX(),
+                    sPlayer.getSavedLocationY(),
+                    sPlayer.getSavedLocationZ(),
+                    sPlayer.getSavedLocationYaw(),
+                    sPlayer.getSavedLocationPitch()
+            );
+            who.teleport(location);
+        }
         who.setGameMode(GameMode.valueOf(sPlayer.getSavedGameMode()));
         who.setFoodLevel(sPlayer.getSavedHunger());
         who.setHealth(sPlayer.getSavedHealth());

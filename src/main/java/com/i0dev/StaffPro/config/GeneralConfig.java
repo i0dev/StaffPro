@@ -21,7 +21,7 @@ import java.util.List;
 @ToString
 public class GeneralConfig extends AbstractConfiguration {
 
-
+    boolean teleportPlayerToOGPositionWhenLeaveModMode = false;
     String vanishActionBarText = "&a&lVanished";
     String modModeActionBarText = "&c&lMod Mode";
     String bothActionBarText = "&c&lMod Mode &8| &a&lVanished";
