@@ -139,6 +139,22 @@ public class ModModeHandler extends AbstractListener {
     }
 
     @EventHandler
+    public void onStripClick(PlayerInteractEntityEvent e) {
+        if (!(e.getRightClicked() instanceof Player)) return;
+        ItemStack itemInHand = e.getPlayer().getItemInHand();
+        if (itemInHand == null || Material.AIR.equals(itemInHand.getType())) return;
+        NBTItem nbtItem = new NBTItem(itemInHand);
+        if (!"strip".equalsIgnoreCase(nbtItem.getString("staffpro_modmode_item"))) return;
+        if (!e.getPlayer().hasPermission("staffpro.strip.modmode")) {
+            heart.msgManager().msg(e.getPlayer(), heart.msg().getNoPermission());
+            return;
+        }
+        heart.getMiscManager().strip(((Player) e.getRightClicked()));
+        heart.msgManager().msg(e.getPlayer(), heart.msg().getYouStripped(), new MessageManager.Pair<>("{player}", e.getRightClicked().getName()));
+        heart.msgManager().msg(e.getRightClicked(), heart.msg().getYouWereStripped());
+    }
+
+    @EventHandler
     public void onRandomTPClick(PlayerInteractEvent e) {
         ItemStack itemInHand = e.getPlayer().getItemInHand();
         if (!e.getAction().equals(Action.RIGHT_CLICK_AIR)) return;

@@ -14,7 +14,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 @Getter
 public class ModModeManager extends AbstractManager {
@@ -69,31 +68,44 @@ public class ModModeManager extends AbstractManager {
         GeneralConfig cnf = heart.cnf();
         SPlayer sPlayer = heart.getSPlayerManager().getSPlayer(player.getUniqueId());
 
-        ItemStack freeze = Utility.makeItem(Material.getMaterial(Material.PACKED_ICE.toString()), 1, ((short) 0), "freeze", null, true);
+        ItemStack freeze = Utility.makeItem(cnf.getModModeFreezeItem());
         freeze = addNBTValue(freeze, "freeze");
 
-        ItemStack combatList = Utility.makeItem(Material.getMaterial(Material.WATCH.toString()), 1, ((short) 0), "combat", null, true);
+        ItemStack combatList = Utility.makeItem(cnf.getModModeCombatListItem());
         combatList = addNBTValue(combatList, "combatList");
 
-        ItemStack vanish = Utility.makeItem(Material.getMaterial(Material.STONE.toString()), 1, ((short) 0), "van", null, true);
+        ItemStack vanish = Utility.makeItem(cnf.getModModeVanishItem());
         vanish = addNBTValue(vanish, "vanish");
 
-        ItemStack unVanish = Utility.makeItem(Material.getMaterial(Material.GRASS.toString()), 1, ((short) 0), "unvan", null, true);
+        ItemStack unVanish = Utility.makeItem(cnf.getModModeUnVanishItem());
         unVanish = addNBTValue(unVanish, "unVanish");
 
-        ItemStack examine = Utility.makeItem(Material.getMaterial(Material.ENDER_CHEST.toString()), 1, ((short) 0), "exam", null, true);
+        ItemStack examine = Utility.makeItem(cnf.getModModeExamineItem());
         examine = addNBTValue(examine, "examine");
 
-        ItemStack randomTP = Utility.makeItem(Material.getMaterial(Material.NETHER_STAR.toString()), 1, ((short) 0), "rtp", null, true);
+        ItemStack randomTP = Utility.makeItem(cnf.getModModeRandomTPItem());
         randomTP = addNBTValue(randomTP, "randomTP");
 
-        inventory.setItem(cnf.getModModeFreezeIndex(), freeze);
-        inventory.setItem(cnf.getModModeCombatListIndex(), combatList);
-        if (!sPlayer.isVanished()) inventory.setItem(cnf.getModModeVanishIndex(), vanish);
-        else inventory.setItem(cnf.getModModeVanishIndex(), unVanish);
-        inventory.setItem(cnf.getModMOdeExamineIndex(), examine);
-        inventory.setItem(cnf.getModModeRandomTPIndex(), randomTP);
+        ItemStack strip = Utility.makeItem(cnf.getModModeStripItem());
+        strip = addNBTValue(strip, "strip");
 
+        ItemStack worldEdit = Utility.makeItem(cnf.getModModeWorldEditItem());
+
+        inventory.setItem(cnf.getModModeFreezeItem().index, freeze);
+        inventory.setItem(cnf.getModModeCombatListItem().index, combatList);
+        if (!sPlayer.isVanished()) inventory.setItem(cnf.getModModeVanishItem().index, vanish);
+        else inventory.setItem(cnf.getModModeUnVanishItem().index, unVanish);
+        inventory.setItem(cnf.getModModeExamineItem().index, examine);
+        inventory.setItem(cnf.getModModeRandomTPItem().index, randomTP);
+        inventory.setItem(cnf.getModModeWorldEditItem().index, worldEdit);
+        inventory.setItem(cnf.getModModeStripItem().index, strip);
+
+        ItemStack[] armor = player.getInventory().getArmorContents().clone();
+        armor[3] = Utility.makeItem(cnf.getModModeHelmet());
+        armor[2] = Utility.makeItem(cnf.getModModeChestplate());
+        armor[1] = Utility.makeItem(cnf.getModModeLeggings());
+        armor[0] = Utility.makeItem(cnf.getModModeBoots());
+        player.getInventory().setArmorContents(armor);
     }
 
 
