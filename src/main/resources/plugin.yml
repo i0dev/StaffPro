@@ -58,6 +58,9 @@ commands:
   modmode:
     usage: /modmode [player]
     permission: staffpro.modmode.cmd
+    aliases:
+      - mm
+      - staffmode
     description: Enter modmode for yourself or target player.
   ping:
     usage: /ping [player]

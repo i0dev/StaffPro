@@ -6,3 +6,11 @@ add freeze logs?
 
 
 ** make it so you can choose weather to go back to your OG location or not
+
+Add a ping item
+
+add common info to examine:
+faction
+power
+rank
+etc.
