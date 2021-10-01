@@ -59,6 +59,10 @@ commands:
     usage: /modmode [player]
     permission: staffpro.modmode.cmd
     description: Enter modmode for yourself or target player.
+  ping:
+    usage: /ping [player]
+    permission: staffpro.ping.cmd
+    description: get the ping of yourself or target player.
 
 
 permissions:
@@ -125,6 +129,9 @@ permissions:
   staffpro.examine.modmode:
     default: op
     description: Use examine in modmode.
+  staffpro.examine.strip:
+    default: op
+    description: Use strip in modmode.
   staffpro.rtp.modmode:
     default: op
     description: Use rtp in modmode.
@@ -134,3 +141,6 @@ permissions:
   staffpro.combatlist.cmd:
     default: op
     description: Use the /combatList cmd
+  staffpro.ping.cmd:
+    default: op
+    description: Use the /ping cmd

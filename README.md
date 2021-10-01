@@ -32,6 +32,7 @@ some custom gear that is fully customizable! Everything in this plugin is config
 - `/strip <player>` - `Strips the gear off their body.`
 - `/freeze <player>` - `Freezes the player.`
 - `/unfreeze <player>` - `Un-Freezes the player.`
+- `/ping [player]` - `Shows the ping of yourself or the target player.`
 
 
 ### Permissions:
@@ -39,6 +40,7 @@ some custom gear that is fully customizable! Everything in this plugin is config
 ###### General
 - ```staffpro.reload.cmd```   - ``Gives permissions to use /staffpro reload.``
 - ```staffpro.help.cmd```   - ``Gives permissions to use /staffpro help.``
+- ```staffpro.ping.cmd```   - ``Gives permissions to use /ping.``
 ###### Vanish
 - `staffpro.vanish.cmd` - `Gives permission to use /vanish.`
 - `staffpro.vanish.modmode` - `Gives permission the vanish item in modmode.`
@@ -51,6 +53,7 @@ some custom gear that is fully customizable! Everything in this plugin is config
 - `staffpro.rtp.modmode` - `Gives permission the rtp item in modmode.`
 ###### Strip
 - `staffpro.strip.cmd` - `Gives permission to use /strip.`
+- `staffpro.strip.modmode` - `Gives permission to use strip item in modmode.`
 ###### Freeze
 - `staffpro.freeze.cmd` - `Gives permission to use /freeze.`
 - `staffpro.unfreeze.cmd` - `Gives permission to use /unfreeze.`
