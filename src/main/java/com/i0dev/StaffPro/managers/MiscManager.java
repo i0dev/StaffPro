@@ -109,4 +109,31 @@ public class MiscManager extends AbstractManager {
         }
     }
 
+    /*
+    The following methods are revolving around the strip feature
+     */
+
+    public void strip(Player player) {
+        ItemStack[] armour = player.getInventory().getArmorContents().clone();
+        player.updateInventory();
+        player.getInventory().setArmorContents(null);
+
+        for (ItemStack item : armour) {
+            if (getNonAirContents(player.getInventory().getContents()) != player.getInventory().getSize()) {
+                player.getInventory().addItem(item);
+            } else {
+                player.getLocation().getWorld().dropItemNaturally(player.getLocation(), item);
+            }
+        }
+    }
+
+    public static int getNonAirContents(ItemStack[] contents) {
+        int realItems = 0;
+        for (ItemStack stack : contents) {
+            if (stack == null) continue;
+            if (Material.AIR.equals(stack.getType())) continue;
+            realItems++;
+        }
+        return realItems;
+    }
 }

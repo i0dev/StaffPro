@@ -3,6 +3,8 @@ package com.i0dev.StaffPro.commands;
 import com.i0dev.StaffPro.Heart;
 import com.i0dev.StaffPro.managers.MessageManager;
 import com.i0dev.StaffPro.templates.AbstractCommand;
+import com.i0dev.StaffPro.utility.Utility;
+import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -18,6 +20,7 @@ public class CmdStrip extends AbstractCommand {
         super(heart, command);
     }
 
+    @SneakyThrows
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!sender.hasPermission("staffpro.strip.cmd")) {
@@ -35,33 +38,10 @@ public class CmdStrip extends AbstractCommand {
             return;
         }
 
-        ItemStack[] armour = player.getInventory().getArmorContents().clone();
-
-        player.getInventory().setArmorContents(null);
-
-        for (ItemStack item : armour) {
-            if (getNonAirContents(player.getInventory().getContents()) != player.getInventory().getSize()) {
-                player.getInventory().addItem(item);
-            } else {
-                player.getLocation().getWorld().dropItemNaturally(player.getLocation(), item);
-            }
-        }
+        heart.getMiscManager().strip(player);
         heart.msgManager().msg(sender, heart.msg().getYouStripped(), new MessageManager.Pair<>("{player}", player.getName()));
         heart.msgManager().msg(player, heart.msg().getYouWereStripped());
-
-
     }
-
-    public static int getNonAirContents(ItemStack[] contents) {
-        int realItems = 0;
-        for (ItemStack stack : contents) {
-            if (stack == null) continue;
-            if (Material.AIR.equals(stack.getType())) continue;
-            realItems++;
-        }
-        return realItems;
-    }
-
 
     List<String> blank = new ArrayList<>();
 
