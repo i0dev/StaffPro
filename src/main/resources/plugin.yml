@@ -1,0 +1,136 @@
+name: ${project.build.finalName}
+main: com.i0dev.StaffPro.Heart
+version: ${project.version}
+author: i01
+description: This plugin allows you to take control of your server staff wise, and give your staff team tools to use to moderate your server!
+website: ${project.url}
+softdepend:
+  - Factions
+  - PlaceHolderAPI
+depend:
+  - NBTAPI
+commands:
+  staffpro:
+    description: Main plugin command
+    aliases:
+      - spro
+      - staffmanager
+      - staffprofessional
+    usage: /staffpro <reload/help>
+  vanish:
+    usage: /vanish [player]
+    aliases:
+      - v
+    permission: staffpro.vanish.cmd
+    description: Vanish yourself or another player
+  unvanish:
+    usage: /unvanish [player]
+    aliases:
+      - uv
+      - unv
+    permission: staffpro.unvanish.cmd
+    description: Un-Vanish yourself or another player
+  rtp:
+    usage: /rtp
+    aliases:
+      - randomtp
+      - randomteleport
+    permission: staffpro.rtp.cmd
+    description: Randomly Teleport to a real player.
+  strip:
+    usage: /strip <player>
+    aliases:
+      - geargoaway
+    permission: staffpro.strip.cmd
+    description: Strip a player of their gear.
+  freeze:
+    usage: /freeze <player>
+    permission: staffpro.freeze.cmd
+    description: Freeze the selected player.
+  unfreeze:
+    usage: /unfreeze <player>
+    permission: staffpro.unfreeze.cmd
+    description: Un-Freeze the selected player.
+  examine:
+    usage: /examine <player>
+    permission: staffpro.examine.cmd
+    description: Examine the selected player.
+  modmode:
+    usage: /modmode [player]
+    permission: staffpro.modmode.cmd
+    description: Enter modmode for yourself or target player.
+
+
+permissions:
+  staffpro.reoad.cmd:
+    description: Reload config
+    default: op
+  staffpro.vanish.cmd:
+    description: use the vanish cmd
+    default: op
+  staffpro.unvansh.cmd:
+    default: op
+    description: use the unvanish cmd
+  staffpro.vanish.login:
+    description: Permission for if you are put into vanish on login.
+    default: op
+  staffpro.staff:
+    default: op
+    description: This indicates if you are a staff member or not.
+  staffpro.rtp.bypass:
+    description: Bypass rtp
+    default: op
+  staffpro.rtp.cmd:
+    default: op
+    description: use the /rtp cmd
+  staffpro.strip.cmd:
+    description: use the /strip cmd
+    default: op
+  staffpro.freeze.bypass:
+    default: op
+    description: Bypass being frozen
+  staffpro.freeze.cmd:
+    description: use the /freeeze cmd
+    default: op
+  staffpro.unfreeze.cmd:
+    default: op
+    description: use the /unfreeze cmd
+  staffpro.examine.cmd:
+    description: use /examine cmd
+    default: op
+  staffpro.examine.bypass:
+    default: op
+    description: Bypass being examined.
+  staffpro.examine.takeitem:
+    default: op
+    description: Able to take items from the examine inventory.
+  staffpro.modmode.cmd:
+    default: op
+    description: use the /modmode cmd
+  staffpro.modmode.login:
+    default: op
+    description: If you have this permission you will be able to login and automatically be put in modmode.
+  staffpro.freeze.modmode:
+    default: op
+    description: Use freeze in modmode.
+  staffpro.unfreeze.modmode:
+    default: op
+    description: Use unfreeze in modmode.
+  staffpro.vanish.modmode:
+    default: op
+    description: Use vanish in modmode.
+  staffpro.unvanish.modmode:
+    default: op
+    description: Use unvanish in modmode.
+  staffpro.examine.modmode:
+    default: op
+    description: Use examine in modmode.
+  staffpro.rtp.modmode:
+    default: op
+    description: Use rtp in modmode.
+  staffpro.combatlist.modmode:
+    default: op
+    description: Use combat list in modmode.
+  staffpro.combatlist.cmd:
+    default: op
+    description: Use the /combatList cmd
