@@ -1,0 +1,16 @@
+modmode armour
+
+modmode items finish config
+
+combat list
+
+add wand for world edit & add strip item for modmode
+
+staff joining in modmode, or vanished announce
+
+hooks for other gamemodes, skyblock, saber factions, etc.
+
+add /ping cmd
+
+add freeze logs?
+
