@@ -69,7 +69,7 @@ commands:
 
 
 permissions:
-  staffpro.reoad.cmd:
+  staffpro.reload.cmd:
     description: Reload config
     default: op
   staffpro.vanish.cmd:
