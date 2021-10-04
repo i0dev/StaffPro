@@ -11,12 +11,9 @@ options in your inventory to do certain things. Some of these things include: Va
 some custom gear that is fully customizable! Everything in this plugin is configurable.
 
 ### Dependencies
-
-- Vault
 - NBTAPI
 
 ### Works With
-
 - PlaceholderAPI
 - MassiveCraft Factions
 
