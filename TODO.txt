@@ -1,4 +1,4 @@
-combat list
+
 staff joining in modmode, or vanished announce
 hooks for other gamemodes, skyblock, saber factions, etc.
 add freeze logs?
@@ -6,7 +6,6 @@ add freeze logs?
 
 
 ** make it so you can choose weather to go back to your OG location or not
-
 Add a ping item
 
 add common info to examine:

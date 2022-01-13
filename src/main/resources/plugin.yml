@@ -147,3 +147,6 @@ permissions:
   staffpro.ping.cmd:
     default: op
     description: Use the /ping cmd
+  staffpro.combatgui.teleport:
+    default: op
+    description: Teleport to players in the combat GUI

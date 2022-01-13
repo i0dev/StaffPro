@@ -130,6 +130,14 @@
             <scope>system</scope>
             <systemPath>${basedir}/../../../../Dependencies/Factions.jar</systemPath>
         </dependency>
+
+        <dependency>
+            <groupId>combattagplus</groupId>
+            <artifactId>ctpl</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../../../../Dependencies/All Plugins/CombatTagPlus.jar</systemPath>
+        </dependency>
         <dependency>
             <groupId>mcore</groupId>
             <artifactId>mcore</artifactId>

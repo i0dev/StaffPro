@@ -34,6 +34,9 @@ public class MessageConfig extends AbstractConfiguration {
     String nowExamining = "&7You are now examining&c {player}";
 
 
+    // Combat
+    String noPlayersInCombat = "&cThere are no players in combat.";
+
     //freeze
     String alreadyFrozen = "&c{player}&7 is already frozen!";
     String notFrozen = "&c{player}&7 is not currently frozen!";

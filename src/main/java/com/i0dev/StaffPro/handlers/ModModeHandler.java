@@ -1,24 +1,25 @@
 package com.i0dev.StaffPro.handlers;
 
 import com.i0dev.StaffPro.Heart;
+import com.i0dev.StaffPro.managers.CombatManager;
 import com.i0dev.StaffPro.managers.FreezeManager;
 import com.i0dev.StaffPro.managers.MessageManager;
-import com.i0dev.StaffPro.managers.MiscManager;
 import com.i0dev.StaffPro.objects.SPlayer;
 import com.i0dev.StaffPro.templates.AbstractListener;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.UUID;
 
 public class ModModeHandler extends AbstractListener {
     public ModModeHandler(Heart heart) {
@@ -72,7 +73,7 @@ public class ModModeHandler extends AbstractListener {
     @EventHandler
     public void onCombatListClick(PlayerInteractEvent e) {
         ItemStack itemInHand = e.getPlayer().getItemInHand();
-        if (!e.getAction().equals(Action.RIGHT_CLICK_AIR)) return;
+        if (!e.getAction().equals(Action.RIGHT_CLICK_AIR) && !e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (itemInHand == null || Material.AIR.equals(itemInHand.getType())) return;
         NBTItem nbtItem = new NBTItem(itemInHand);
         if (!"combatList".equalsIgnoreCase(nbtItem.getString("staffpro_modmode_item"))) return;
@@ -81,14 +82,22 @@ public class ModModeHandler extends AbstractListener {
             return;
         }
 
-        heart.msgManager().msg(e.getPlayer(), "&cThis is not enabled yet. It's coming soon!");
+        if (!heart.isUsingCombatTagPlus()) {
+            heart.msgManager().msg(e.getPlayer(), "&cCombatTagPlus is not enabled on the server so this feature is disabled.");
+            return;
+        }
 
+        if (heart.getManager(CombatManager.class).getPlayersInCombat().isEmpty()) {
+            heart.msgManager().msg(e.getPlayer(), heart.msg().getNoPlayersInCombat());
+            return;
+        }
+        Bukkit.getScheduler().runTaskAsynchronously(heart, () -> e.getPlayer().openInventory(heart.getManager(CombatManager.class).getCombatGUI(e.getPlayer().getUniqueId())));
     }
 
     @EventHandler
     public void onVanishClick(PlayerInteractEvent e) {
         ItemStack itemInHand = e.getPlayer().getItemInHand();
-        if (!e.getAction().equals(Action.RIGHT_CLICK_AIR)) return;
+        if (!e.getAction().equals(Action.RIGHT_CLICK_AIR) && !e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (itemInHand == null || Material.AIR.equals(itemInHand.getType())) return;
         NBTItem nbtItem = new NBTItem(itemInHand);
         if (!"vanish".equalsIgnoreCase(nbtItem.getString("staffpro_modmode_item")) && !"unVanish".equalsIgnoreCase(nbtItem.getString("staffpro_modmode_item")))
@@ -157,7 +166,7 @@ public class ModModeHandler extends AbstractListener {
     @EventHandler
     public void onRandomTPClick(PlayerInteractEvent e) {
         ItemStack itemInHand = e.getPlayer().getItemInHand();
-        if (!e.getAction().equals(Action.RIGHT_CLICK_AIR)) return;
+        if (!e.getAction().equals(Action.RIGHT_CLICK_AIR) && !e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (itemInHand == null || Material.AIR.equals(itemInHand.getType())) return;
         NBTItem nbtItem = new NBTItem(itemInHand);
         if (!"randomTP".equalsIgnoreCase(nbtItem.getString("staffpro_modmode_item"))) return;
@@ -169,6 +178,7 @@ public class ModModeHandler extends AbstractListener {
             heart.msgManager().msg(e.getPlayer(), heart.msg().getNoRealPlayers());
             return;
         }
+
         Player teleportedTo = heart.getMiscManager().randomTeleport(e.getPlayer());
         heart.msgManager().msg(e.getPlayer(), heart.msg().getRandomTeleported(), new MessageManager.Pair<>("{player}", teleportedTo.getName()));
     }
@@ -235,4 +245,27 @@ public class ModModeHandler extends AbstractListener {
         }
         heart.msgManager().msg(e.getPlayer(), heart.msg().getLoggedInModMode());
     }
+
+    /*
+    These methods will be for combat gui
+     */
+
+    @EventHandler
+    public void preventMovingInCombatGUI(InventoryClickEvent e) {
+        if (e.getInventory() == null || !(e.getInventory().getHolder() instanceof CombatManager.CombatHolder)) return;
+        e.setCancelled(true);
+        if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) return;
+        NBTItem nbtItem = new NBTItem(e.getCurrentItem());
+        if (!nbtItem.hasKey("combat-list-uuid")) return;
+        UUID uuid = UUID.fromString(nbtItem.getString("combat-list-uuid"));
+        Player player = Bukkit.getPlayer(uuid);
+        if (player == null) return;
+        if (!e.getWhoClicked().hasPermission("staffpro.combatgui.teleport")) {
+            heart.msgManager().msg(e.getWhoClicked(), heart.msg().getNoPermission());
+            return;
+        }
+        e.getWhoClicked().teleport(player);
+    }
+
+
 }

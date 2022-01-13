@@ -220,6 +220,19 @@ public class GeneralConfig extends AbstractConfiguration {
     );
 
 
+    public String combatGUITitle = "&4&lCombat List";
+
+    public String combatGUIHeadName = "&c{displayName}";
+    public List<String> combatGuiHeadLore = Arrays.asList(
+            "",
+            "&c&lInformation:",
+            "&4 * &7Faction: &c{faction}",
+            "&4 * &7Tagged with: &c{taggedName}",
+            "",
+            "&7Click to teleport to them!"
+    );
+
+
     public GeneralConfig(Heart heart, String path) {
         this.path = path;
         this.heart = heart;

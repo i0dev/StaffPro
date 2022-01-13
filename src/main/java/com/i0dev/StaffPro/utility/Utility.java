@@ -289,4 +289,19 @@ public class Utility {
             return "";
         }
     }
+    public static int getMaxInventorySize(int number) {
+        if (number >= 0 && number <= 9) {
+            return 9;
+        } else if (number >= 10 && number <= 18) {
+            return 18;
+        } else if (number >= 19 && number <= 27) {
+            return 27;
+        } else if (number >= 28 && number <= 36) {
+            return 36;
+        } else if (number >= 37 && number <= 45) {
+            return 45;
+        } else {
+            return 54;
+        }
+    }
 }

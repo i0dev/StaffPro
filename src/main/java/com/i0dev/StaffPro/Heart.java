@@ -33,6 +33,7 @@ public class Heart extends JavaPlugin {
 
     boolean usingPapi;
     boolean usingMCoreFactions;
+    boolean usingCombatTagPlus;
 
     @Override
     public void onEnable() {
@@ -40,6 +41,7 @@ public class Heart extends JavaPlugin {
         usingPapi = getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
         Plugin factions = getServer().getPluginManager().getPlugin("Factions");
         usingMCoreFactions = factions != null && factions.getDescription().getVersion().startsWith("2.");
+        usingCombatTagPlus = getServer().getPluginManager().isPluginEnabled("CombatTagPlus");
 
         managers.addAll(Arrays.asList(
                 new MessageManager(this),
@@ -50,6 +52,7 @@ public class Heart extends JavaPlugin {
                 new MiscHandler(this),
                 new FreezeManager(this),
                 new ModModeManager(this),
+                new CombatManager(this),
                 new ModModeHandler(this),
                 new FrozenHandler(this),
                 new CmdFreeze(this, "freeze"),
@@ -63,6 +66,9 @@ public class Heart extends JavaPlugin {
                 new CmdExamine(this, "examine"),
                 new CmdRTP(this, "rtp")
         ));
+        if (usingCombatTagPlus) {
+            managers.add(new com.i0dev.StaffPro.hooks.CombatTagPlusHook(this));
+        }
 
         configs.addAll(Arrays.asList(
                 new GeneralConfig(this, getDataFolder() + "/General.json"),

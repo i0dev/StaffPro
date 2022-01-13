@@ -1,10 +1,13 @@
 package com.i0dev.StaffPro.hooks;
 
 import com.massivecraft.factions.entity.BoardColl;
+import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.massivecore.ps.PS;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class MCoreFactionsHook {
 
@@ -19,6 +22,13 @@ public class MCoreFactionsHook {
 
     public static boolean isOwn(Location location, Player player) {
         return BoardColl.get().getFactionAt(PS.valueOf(location)).getId().equals(MPlayer.get(player).getFaction().getId());
+    }
+
+    public static String getFacName(UUID observer, UUID player) {
+        MPlayer mPlayer = MPlayer.get(player);
+        Faction fac = mPlayer.getFaction();
+        MPlayer mObserver = MPlayer.get(observer);
+        return mObserver.getColorTo(mPlayer) + fac.getName();
     }
 
 }
