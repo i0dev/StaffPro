@@ -58,6 +58,7 @@ public class CombatManager extends AbstractManager {
     }
 
     Runnable taskCheckCombatStatus = () -> {
+        List<UUID> toRemove = new ArrayList<>();
         for (UUID uuid : playersInCombat) {
             Player player = Bukkit.getPlayer(uuid);
             if (player == null || !player.isOnline()) {
@@ -65,8 +66,9 @@ public class CombatManager extends AbstractManager {
                 continue;
             }
             if (!CombatTagPlusHook.isPlayerInCombat(uuid))
-                playersInCombat.remove(uuid);
+                toRemove.add(uuid);
         }
+        toRemove.forEach(playersInCombat::remove);
     };
 
     public void addButCheck(Player player) {
