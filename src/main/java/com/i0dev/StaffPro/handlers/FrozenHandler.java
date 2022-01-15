@@ -15,9 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
@@ -91,6 +89,7 @@ public class FrozenHandler extends AbstractListener {
         heart.msgManager().msg(e.getPlayer(), heart.msg().getFrozenLoginMessage());
     }
 
+
     @EventHandler
     public void onFrozenKick(PlayerKickEvent e) {
         SPlayer sPlayer = heart.getSPlayerManager().getSPlayer(e.getPlayer().getUniqueId());
@@ -108,6 +107,15 @@ public class FrozenHandler extends AbstractListener {
     /*
     The following methods are to prevent player movement or interactions while frozen.
      */
+
+    @EventHandler
+    public void onEnderPearl(ProjectileLaunchEvent e) {
+        Player player = (Player) e.getEntity().getShooter();
+        SPlayer sPlayer = heart.getSPlayerManager().getSPlayer(player.getUniqueId());
+        if (!sPlayer.isFrozen()) return;
+        heart.msgManager().msg(e.getEntity(), heart.msg().getCantDoWhileFrozen(), new MessageManager.Pair<>("{action}", "ender pearl"));
+        e.setCancelled(true);
+    }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
