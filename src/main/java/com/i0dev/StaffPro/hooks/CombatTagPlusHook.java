@@ -42,8 +42,10 @@ public class CombatTagPlusHook extends AbstractListener {
 
     @EventHandler
     public void onCombatTag(PlayerCombatTagEvent e) {
-        heart.getManager(CombatManager.class).addButCheck(e.getAttacker());
-        heart.getManager(CombatManager.class).addButCheck(e.getVictim());
+        if (e.getAttacker() != null)
+            heart.getManager(CombatManager.class).addButCheck(e.getAttacker());
+        if (e.getVictim() != null)
+            heart.getManager(CombatManager.class).addButCheck(e.getVictim());
     }
 
 }
