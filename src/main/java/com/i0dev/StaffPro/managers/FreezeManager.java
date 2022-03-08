@@ -27,4 +27,17 @@ public class FreezeManager extends AbstractManager {
         heart.getSPlayerManager().add(sPlayer);
     }
 
+    public void softFreeze(Player player) {
+        SPlayer sPlayer = heart.getSPlayerManager().getSPlayer(player.getUniqueId());
+        sPlayer.setSoft_frozen(true);
+        heart.getSPlayerManager().add(sPlayer);
+    }
+
+
+    public void unSoftFreeze(Player player) {
+        SPlayer sPlayer = heart.getSPlayerManager().getSPlayer(player.getUniqueId());
+        sPlayer.setSoft_frozen(false);
+        heart.getSPlayerManager().add(sPlayer);
+    }
+
 }

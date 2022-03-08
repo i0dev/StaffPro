@@ -22,7 +22,9 @@ public class MessageConfig extends AbstractConfiguration {
     String stripUsage = "&cUsage: &7/strip <player>";
     String RTPUsage = "&cUsage: &7/rtp";
     String freezeFormat = "&cUsage: &7/freeze <player>";
+    String softFreezeFormat = "&cUsage: &7/softFreeze <player>";
     String unFreezeFormat = "&cUsage: &7/unfreeze <player>";
+    String unSoftFreezeFormat = "&cUsage: &7/unSoftFreeze <player>";
     String examineFormat = "&cUsage: &7/examine <player>";
     String modModeUsage = "&cUsage: &7/modmode <player>";
     String pingUsage = "&cUsage: &7/ping [player]";
@@ -63,6 +65,27 @@ public class MessageConfig extends AbstractConfiguration {
     String frozenLoginAnnounce = "&7The player &c{player}&7 has logged&a online&7 while frozen!";
     String frozenLogoutAnnounce = "&7The player &c{player}&7 has logged&c offline&7 while frozen!";
     String frozenLoginMessage = "&7You have logged in the server while frozen.";
+
+    //soft freeze
+    String alreadySoftFrozen = "&c{player}&7 is already soft frozen!";
+    String notSoftFrozen = "&c{player}&7 is not currently soft frozen!";
+    String youSoftFroze = "&7You soft froze &c{player}";
+    String youUnSoftFroze = "&7You un-soft froze &a{player}";
+    String youBeenSoftFrozen = "&cYou have been soft frozen by {player}";
+    String youBeenUnSoftFrozen = "&aYou have been un-soft frozen by {player}";
+    String youCantSoftFreeze = "&7You cannot soft freeze &c{player}&7 because they bypass being frozen.";
+    String softFrozeAnnounce = "&c{player} &7has been soft frozen by &c{staff}";
+    String unSoftFrozeAnnounce = "&c{player} &7has been un-soft frozen by &c{staff}";
+    List<String> softFrozenMessage = Arrays.asList(
+            "",
+            "&c&lYou have been SOFT frozen",
+            "&7DO NOT LOG OFF until you have been contacted by a staff member or have been unfrozen.",
+            "&7Logging off will result in a ban.",
+            ""
+    );
+    String softFrozenLoginAnnounce = "&7The player &c{player}&7 has logged&a online&7 while soft frozen!";
+    String softFrozenLogoutAnnounce = "&7The player &c{player}&7 has logged&c offline&7 while soft frozen!";
+    String softFrozenLoginMessage = "&7You have logged in the server while soft frozen.";
 
     //modmode
     String noLongerModMode = "&cYou are no longer in mod mode.";

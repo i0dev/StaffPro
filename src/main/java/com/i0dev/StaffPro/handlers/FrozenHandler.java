@@ -28,14 +28,6 @@ public class FrozenHandler extends AbstractListener {
         super(heart);
     }
 
-    /*
-    Thius
-     */
-    @EventHandler
-    public void onNormalJoin(PlayerJoinEvent e) {
-
-    }
-
     public BukkitTask task;
 
     @Override

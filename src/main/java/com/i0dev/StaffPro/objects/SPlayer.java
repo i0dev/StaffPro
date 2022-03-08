@@ -20,6 +20,7 @@ public class SPlayer {
     public boolean vanished = false;
     public boolean modmode = false;
     public boolean frozen = false;
+    public boolean soft_frozen = false;
 
     // Mod Mode Storage
     public String savedInventoryContents = "";

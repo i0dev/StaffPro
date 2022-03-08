@@ -51,6 +51,14 @@ commands:
     usage: /unfreeze <player>
     permission: staffpro.unfreeze.cmd
     description: Un-Freeze the selected player.
+  softfreeze:
+    usage: /softfreeze <player>
+    permission: staffpro.softfreeze.cmd
+    description: Soft Freeze the selected player.
+  unsoftfreeze:
+    usage: /unsoftfreeze <player>
+    permission: staffpro.unsoftfreeze.cmd
+    description: Un-Soft-Freeze the selected player.
   examine:
     usage: /examine <player>
     permission: staffpro.examine.cmd
@@ -102,6 +110,15 @@ permissions:
   staffpro.unfreeze.cmd:
     default: op
     description: use the /unfreeze cmd
+  staffpro.softfreeze.bypass:
+    default: op
+    description: Bypass being soft frozen
+  staffpro.softfreeze.cmd:
+    description: use the /softfreeeze cmd
+    default: op
+  staffpro.unsoftfreeze.cmd:
+    default: op
+    description: use the /unsoftfreeze cmd
   staffpro.examine.cmd:
     description: use /examine cmd
     default: op

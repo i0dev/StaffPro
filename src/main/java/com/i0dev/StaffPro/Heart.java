@@ -4,10 +4,7 @@ import com.i0dev.StaffPro.commands.*;
 import com.i0dev.StaffPro.config.GeneralConfig;
 import com.i0dev.StaffPro.config.MessageConfig;
 import com.i0dev.StaffPro.config.SPlayerStorage;
-import com.i0dev.StaffPro.handlers.FrozenHandler;
-import com.i0dev.StaffPro.handlers.MiscHandler;
-import com.i0dev.StaffPro.handlers.ModModeHandler;
-import com.i0dev.StaffPro.handlers.VanishHandler;
+import com.i0dev.StaffPro.handlers.*;
 import com.i0dev.StaffPro.managers.*;
 import com.i0dev.StaffPro.templates.AbstractCommand;
 import com.i0dev.StaffPro.templates.AbstractConfiguration;
@@ -55,6 +52,7 @@ public class Heart extends JavaPlugin {
                 new CombatManager(this),
                 new ModModeHandler(this),
                 new FrozenHandler(this),
+                new SoftFrozenHandler(this),
                 new CmdFreeze(this, "freeze"),
                 new CmdUnFreeze(this, "unfreeze"),
                 new CmdModMode(this, "modmode"),
@@ -64,7 +62,10 @@ public class Heart extends JavaPlugin {
                 new CmdStrip(this, "strip"),
                 new CmdUnVanish(this, "unvanish"),
                 new CmdExamine(this, "examine"),
-                new CmdRTP(this, "rtp")
+                new CmdRTP(this, "rtp"),
+                new CmdSoftFreeze(this, "softfreeze"),
+                new CmdUnSoftFreeze(this, "unsoftfreeze")
+
         ));
         if (usingCombatTagPlus) {
             managers.add(new com.i0dev.StaffPro.hooks.CombatTagPlusHook(this));
