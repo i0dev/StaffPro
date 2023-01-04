@@ -51,6 +51,7 @@ public class Heart extends JavaPlugin {
                 new ModModeManager(this),
                 new CombatManager(this),
                 new ModModeHandler(this),
+                new SpeedLimitHandler(this),
                 new FrozenHandler(this),
                 new SoftFrozenHandler(this),
                 new CmdFreeze(this, "freeze"),

@@ -128,7 +128,7 @@
             <artifactId>mcore</artifactId>
             <version>1</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../../../../Dependencies/Factions.jar</systemPath>
+            <systemPath>${basedir}/../../../../Dependencies/Mush together of all old dependencies/Factions.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -136,14 +136,14 @@
             <artifactId>ctpl</artifactId>
             <version>1</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../../../../Dependencies/All Plugins/CombatTagPlus.jar</systemPath>
+            <systemPath>${basedir}/../../../../Dependencies/Mush together of all old dependencies/CombatTagPlus.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>mcore</groupId>
             <artifactId>mcore</artifactId>
             <version>1</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../../../../Dependencies/MassiveCore.jar</systemPath>
+            <systemPath>${basedir}/../../../../Dependencies/Mush together of all old dependencies/MassiveCore.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

@@ -21,6 +21,9 @@ import java.util.List;
 @ToString
 public class GeneralConfig extends AbstractConfiguration {
 
+    boolean playerSpeedLimiterEnabled = true;
+    double playerSpeedLimiterMaxMoveSpeed = 5.0;
+    double playerSpeedLimiterMaxFlySpeed = 3.0;
     boolean teleportPlayerToOGPositionWhenLeaveModMode = false;
     String vanishActionBarText = "&a&lVanished";
     String modModeActionBarText = "&c&lMod Mode";
