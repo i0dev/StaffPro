@@ -37,12 +37,10 @@ public class GeneralConfig extends AbstractConfiguration {
     );
     boolean chatFilterEnabled = true;
     List<String> chatFilterBlacklistedWords = Arrays.asList(
-            "nigga",
-            "n1gga",
-            "nigger",
-            "nigg",
-            "faggot",
-            "fag"
+            "naughtyWordsHere"
+    );
+    List<String> chatFilterWhitelistedWords = Arrays.asList(
+            "night"
     );
 
     // examine inventory
