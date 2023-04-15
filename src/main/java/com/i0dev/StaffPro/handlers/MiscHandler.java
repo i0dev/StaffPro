@@ -8,6 +8,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class MiscHandler extends AbstractListener {
     public MiscHandler(Heart heart) {
         super(heart);
@@ -22,8 +25,18 @@ public class MiscHandler extends AbstractListener {
         for (String word : heart.cnf().getChatFilterBlacklistedWords()) {
             word = word.toLowerCase();
             if (!e.getMessage().toLowerCase().contains(word)) continue;
+
+            if (anyMatch(e.getMessage().toLowerCase(),heart.cnf().getChatFilterWhitelistedWords().stream().map(String::toLowerCase).collect(Collectors.toList()))) continue;
+
             e.setMessage(e.getMessage().replace(word, getStars(word)));
         }
+    }
+
+    public boolean anyMatch(String s, List<String> arr) {
+        for (String str : arr) {
+            if (s.equalsIgnoreCase(str)) return true;
+        }
+        return false;
     }
 
     public String getStars(String s) {
