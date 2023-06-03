@@ -1,0 +1,42 @@
+name: ${project.name}
+version: ${project.version}
+main: com.i0dev.staffpro.StaffProPlugin
+authors: [ i01 ]
+depend: [ MassiveCore ]
+softdepend: [ Factions, CombatTagPlus ]
+description: ${project.description}
+website: ${project.url}
+api-version: 1.15
+permissions:
+  staffpro.basecommand: { description: staffpro basecommand, default: false }
+  staffpro.examine: { description: examine player, default: false }
+  staffpro.version: { description: check version, default: false }
+  staffpro.*:
+    staffpro.basecommand: true
+    staffpro.combatlist: true
+    staffpro.examine: true
+    staffpro.freeze: true
+    staffpro.freeze.bypass: true
+    staffpro.modmode: true
+    staffpro.ping: true
+    staffpro.randomteleport: true
+    staffpro.randomteleport.bypass: true
+    staffpro.staff: true
+    staffpro.strip: true
+    staffpro.strip.bypass: true
+    staffpro.unfreeze: true
+    staffpro.unvanish: true
+    staffpro.vanish: true
+    staffpro.version: true
+  staffpro.kit.op:
+    default: op
+    children:
+      staffpro.*: true
+  staffpro.kit.rank0:
+    default: false
+    children:
+      staffpro.basecommand: true
+  staffpro.kit.default:
+    default: true
+    children:
+      staffpro.kit.rank0: true
