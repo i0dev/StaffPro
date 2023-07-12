@@ -110,8 +110,9 @@ public class EngineFrozen extends Engine {
 
     @EventHandler
     public void onAttack(EntityDamageByEntityEvent e) {
-        if (!(e.getDamager() instanceof Player)) return;
-        MPlayer mPlayer = MPlayer.get(e.getDamager());
+        if (!(e.getDamager() instanceof Player player)) return;
+        MPlayer mPlayer = MPlayer.get(player);
+        if (mPlayer == null) return;
         if (!mPlayer.isFrozen()) return;
         mPlayer.msg(Utils.prefixAndColor(MLang.get().cantDoThatWhileFrozen, new Pair<>("%action%", "attack")));
         e.setCancelled(true);
@@ -162,8 +163,9 @@ public class EngineFrozen extends Engine {
 
     @EventHandler
     public void onAnyDamage(EntityDamageByEntityEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
-        MPlayer mPlayer = MPlayer.get(e.getEntity());
+        if (!(e.getEntity() instanceof Player player)) return;
+        MPlayer mPlayer = MPlayer.get(player);
+        if (mPlayer == null) return;
         if (!mPlayer.isFrozen()) return;
         e.setCancelled(true);
     }
@@ -171,6 +173,7 @@ public class EngineFrozen extends Engine {
     @EventHandler
     public void onHungerLoss(FoodLevelChangeEvent e) {
         MPlayer mPlayer = MPlayer.get(e.getEntity());
+        if (mPlayer == null) return;
         if (!mPlayer.isFrozen()) return;
         e.setCancelled(true);
     }
@@ -178,6 +181,7 @@ public class EngineFrozen extends Engine {
     @EventHandler
     public void onPickupItem(PlayerPickupItemEvent e) {
         MPlayer mPlayer = MPlayer.get(e.getPlayer());
+        if (mPlayer == null) return;
         if (!mPlayer.isFrozen()) return;
         e.setCancelled(true);
     }

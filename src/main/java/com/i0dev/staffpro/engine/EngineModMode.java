@@ -90,6 +90,7 @@ public class EngineModMode extends Engine {
     @EventHandler
     public void onModModeBlockPlace(BlockPlaceEvent e) {
         MPlayer mPlayer = MPlayer.get(e.getPlayer());
+        if (mPlayer == null) return;
         if (!mPlayer.isModmode()) return;
         e.setCancelled(true);
     }
@@ -97,6 +98,7 @@ public class EngineModMode extends Engine {
     @EventHandler
     public void onModeModeInventory(InventoryClickEvent e) {
         MPlayer mPlayer = MPlayer.get(e.getWhoClicked());
+        if (mPlayer == null) return;
         if (!mPlayer.isModmode()) return;
         e.setCancelled(true);
     }
@@ -104,14 +106,16 @@ public class EngineModMode extends Engine {
     @EventHandler
     public void onModModeCreativeEvent(InventoryCreativeEvent e) {
         MPlayer mPlayer = MPlayer.get(e.getWhoClicked());
+        if (mPlayer == null) return;
         if (!mPlayer.isModmode()) return;
         e.setCancelled(true);
     }
 
     @EventHandler
     public void onModModePickupItem(EntityPickupItemEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
-        MPlayer mPlayer = MPlayer.get(e.getEntity());
+        if (!(e.getEntity() instanceof Player player)) return;
+        MPlayer mPlayer = MPlayer.get(player);
+        if (mPlayer == null) return;
         if (!mPlayer.isModmode()) return;
         e.setCancelled(true);
     }
@@ -125,8 +129,9 @@ public class EngineModMode extends Engine {
 
     @EventHandler
     public void onModModeDamage(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
-        MPlayer mPlayer = MPlayer.get(e.getEntity());
+        if (!(e.getEntity() instanceof Player player)) return;
+        MPlayer mPlayer = MPlayer.get(player);
+        if (mPlayer == null) return;
         if (!mPlayer.isModmode()) return;
         e.setCancelled(true);
     }
@@ -135,6 +140,7 @@ public class EngineModMode extends Engine {
     @EventHandler
     public void onModModeJoin(PlayerJoinEvent e) {
         MPlayer mPlayer = MPlayer.get(e.getPlayer());
+        if (mPlayer == null) return;
         if (!mPlayer.isModmode()) return;
         if (!Perm.STAFF.has(e.getPlayer())) {
             mPlayer.disableModMode();
