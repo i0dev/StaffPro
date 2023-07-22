@@ -6,7 +6,7 @@ depend: [ MassiveCore ]
 softdepend: [ Factions, CombatTagPlus ]
 description: ${project.description}
 website: ${project.url}
-api-version: 1.15
+api-version: 1.20
 permissions:
   staffpro.basecommand: { description: staffpro basecommand, default: false }
   staffpro.examine: { description: examine player, default: false }
