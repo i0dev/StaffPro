@@ -103,8 +103,10 @@ public class MPlayer extends SenderEntity<MPlayer> {
     }
 
     public void enableVanish() {
-        setVanished(true);
-        this.changed();
+        if (!vanished) {
+            setVanished(true);
+            this.changed();
+        }
         this.forceActionbar();
         Bukkit.getOnlinePlayers().stream()
                 .filter(player -> !Perm.STAFF.has(player))

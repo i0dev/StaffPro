@@ -50,6 +50,8 @@ public class CmdStrip extends StaffProCommand {
         player.getInventory().setArmorContents(null);
 
         for (ItemStack item : armour) {
+            if (item == null) continue;
+            if (Material.AIR.equals(item.getType())) continue;
             if (getNonAirContents(player.getInventory().getContents()) != player.getInventory().getSize()) {
                 player.getInventory().addItem(item);
             } else {

@@ -21,8 +21,13 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class EngineModMode extends Engine {
 
@@ -32,15 +37,27 @@ public class EngineModMode extends Engine {
         return i;
     }
 
+    Map<UUID, Long> lastInteractTimes = new HashMap<>();
+
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         ItemStack item = e.getItem();
+        long time = System.currentTimeMillis();
+
         if (item == null) return;
         if (item.getType().equals(Material.AIR)) return;
         if (!item.hasItemMeta()) return;
         if (!e.getAction().equals(Action.RIGHT_CLICK_AIR) && !e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
         MPlayer mPlayerSender = MPlayer.get(e.getPlayer());
         if (!mPlayerSender.isModmode()) return;
+        if (lastInteractTimes.containsKey(e.getPlayer().getUniqueId()) &&
+                time - lastInteractTimes.get(e.getPlayer().getUniqueId()) < 100) {
+            System.out.println(time - lastInteractTimes.get(e.getPlayer().getUniqueId()));
+            // Ignore the event, as it's too soon since the last one
+            return;
+        }
+        lastInteractTimes.put(e.getPlayer().getUniqueId(), time);
         e.setCancelled(true);
         NamespacedKey key = new NamespacedKey(StaffProPlugin.get(), "staffpro_modmode_item");
         String value = item.getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING);
@@ -61,27 +78,28 @@ public class EngineModMode extends Engine {
 
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
+        if (!e.getHand().equals(EquipmentSlot.HAND)) return;
         Entity entity = e.getRightClicked();
         if (!(entity instanceof Player)) return;
-        ItemStack item = e.getPlayer().getItemInUse();
-        if (item == null) return;
+        ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
         if (item.getType().equals(Material.AIR)) return;
         if (!item.hasItemMeta()) return;
         MPlayer mPlayerSender = MPlayer.get(e.getPlayer());
         if (!mPlayerSender.isModmode()) return;
         e.setCancelled(true);
-        NamespacedKey key = new NamespacedKey(StaffProPlugin.get(), "staffpro_modmode_item");
-        String value = item.getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING);
+        String value = item.getItemMeta().getPersistentDataContainer().get(Utils.key("staffpro_modmode_item"), PersistentDataType.STRING);
         if (value == null) return;
         MPlayer mPlayer = MPlayer.get(e.getRightClicked());
-
         switch (value) {
-            case "freeze" -> {
+            case "freeze":
                 if (mPlayer.isFrozen()) CmdUnFreeze.get().execute(e.getPlayer(), MUtil.list(mPlayer.getName()));
                 else CmdFreeze.get().execute(e.getPlayer(), MUtil.list(mPlayer.getName()));
-            }
-            case "examine" -> CmdExamine.get().execute(e.getPlayer(), MUtil.list(mPlayer.getName()));
-            case "strip" -> CmdStrip.get().execute(e.getPlayer(), MUtil.list(mPlayer.getName()));
+                break;
+            case "examine":
+                CmdExamine.get().execute(e.getPlayer(), MUtil.list(mPlayer.getName()));
+                break;
+            case "strip":
+                CmdStrip.get().execute(e.getPlayer(), MUtil.list(mPlayer.getName()));
         }
     }
 
@@ -147,5 +165,14 @@ public class EngineModMode extends Engine {
         }
     }
 
+
+    // Revanish players when they log in
+    @EventHandler
+    public void onModModeLogin(PlayerLoginEvent e) {
+        MPlayer mPlayer = MPlayer.get(e.getPlayer());
+        if (mPlayer == null) return;
+        if (!mPlayer.isVanished()) return;
+        mPlayer.enableVanish();
+    }
 
 }
