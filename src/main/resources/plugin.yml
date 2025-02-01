@@ -19,7 +19,7 @@ permissions:
     staffpro.freeze.bypass: true
     staffpro.modmode: true
     staffpro.ping: true
-    staffpro.randomteleport: true
+    #staffpro.randomteleport: true
     staffpro.randomteleport.bypass: true
     staffpro.staff: true
     staffpro.strip: true

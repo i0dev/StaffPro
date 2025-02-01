@@ -53,28 +53,28 @@ public class EngineInventory extends Engine {
         chestGui.getInventory().setItem(cnf.expItem.slot, new ItemBuilder(cnf.expItem.getMaterial())
                 .amount(cnf.expItem.amount)
                 .name(cnf.expItem.getDisplayName().replace("%exp%", String.valueOf(player.getExp())))
-                .lore(cnf.expItem.getLore())
+                .setNewLore(cnf.expItem.getLore())
                 .addGlow(cnf.expItem.isGlow())
         );
 
         chestGui.getInventory().setItem(cnf.healthItem.slot, new ItemBuilder(cnf.healthItem.getMaterial())
                 .amount(cnf.healthItem.amount)
                 .name(cnf.healthItem.getDisplayName().replace("%health%", String.valueOf(player.getHealth())))
-                .lore(cnf.healthItem.getLore())
+                .setNewLore(cnf.healthItem.getLore())
                 .addGlow(cnf.healthItem.isGlow())
         );
 
         chestGui.getInventory().setItem(cnf.hungerItem.slot, new ItemBuilder(cnf.hungerItem.getMaterial())
                 .amount(cnf.hungerItem.amount)
                 .name(cnf.hungerItem.getDisplayName().replace("%hunger%", String.valueOf(player.getFoodLevel())))
-                .lore(cnf.hungerItem.getLore())
+                .setNewLore(cnf.hungerItem.getLore())
                 .addGlow(cnf.hungerItem.isGlow())
         );
 
         ItemStack skull = new ItemBuilder(cnf.playerHeadItem.getMaterial())
                 .amount(cnf.playerHeadItem.amount)
                 .name(cnf.playerHeadItem.getDisplayName().replace("%player%", player.getDisplayName()))
-                .lore(cnf.playerHeadItem.getLore())
+                .setNewLore(cnf.playerHeadItem.getLore())
                 .addGlow(cnf.playerHeadItem.isGlow());
 
         SkullMeta skullMeta = ((SkullMeta) skull.getItemMeta());
@@ -139,9 +139,12 @@ public class EngineInventory extends Engine {
     }
 
     public static String getFacName(Player observer, Player player) {
-        com.massivecraft.factions.entity.MPlayer mPlayer = com.massivecraft.factions.entity.MPlayer.get(player);
-        com.massivecraft.factions.entity.MPlayer mObserver = com.massivecraft.factions.entity.MPlayer.get(observer);
-        return mPlayer.describeTo(mObserver);
+        // TODO: factions
+
+//        com.massivecraft.factions.entity.MPlayer mPlayer = com.massivecraft.factions.entity.MPlayer.get(player);
+//        com.massivecraft.factions.entity.MPlayer mObserver = com.massivecraft.factions.entity.MPlayer.get(observer);
+//        return mPlayer.describeTo(mObserver);
+        return "ERROR";
     }
 
 }

@@ -15,7 +15,7 @@ public class CmdStaffPro extends StaffProCommand {
     public CmdUnFreeze cmdUnFreeze = new CmdUnFreeze();
     public CmdModMode cmdModMode = new CmdModMode();
     public CmdPing cmdPing = new CmdPing();
-    public CmdRandomTeleport cmdRandomTeleport = new CmdRandomTeleport();
+   // public CmdRandomTeleport cmdRandomTeleport = new CmdRandomTeleport();
     public CmdStrip cmdStrip = new CmdStrip();
     public CmdVanish cmdVanish = new CmdVanish();
     public CmdUnVanish cmdUnVanish = new CmdUnVanish();

@@ -64,7 +64,7 @@ public class EngineModMode extends Engine {
         if (value == null) return;
         switch (value) {
             case "combatlist" -> CmdCombatList.get().execute(e.getPlayer(), MUtil.list());
-            case "randomteleport" -> CmdRandomTeleport.get().execute(e.getPlayer(), MUtil.list());
+          //  case "randomteleport" -> CmdRandomTeleport.get().execute(e.getPlayer(), MUtil.list());
             case "vanish" -> {
                 CmdVanish.get().execute(e.getPlayer(), MUtil.list());
                 MPlayer.get(e.getPlayer()).setModModeVanishItem();

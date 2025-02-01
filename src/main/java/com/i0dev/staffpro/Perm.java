@@ -13,8 +13,8 @@ public enum Perm implements Identified {
     FREEZE_BYPASS,
     MODMODE,
     PING,
-    RANDOMTELEPORT,
-    RANDOMTELEPORT_BYPASS,
+    //RANDOMTELEPORT,
+   // RANDOMTELEPORT_BYPASS,
     STAFF,
     STRIP,
     STRIP_BYPASS,
@@ -22,6 +22,7 @@ public enum Perm implements Identified {
     UNVANISH,
     VANISH,
     VERSION;
+
 
     private final String id;
 

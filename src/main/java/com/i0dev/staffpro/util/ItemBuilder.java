@@ -5,12 +5,14 @@ import com.i0dev.staffpro.entity.object.ConfigItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.material.MaterialData;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class ItemBuilder extends ItemStack {
         return new ItemBuilder(configItem.getMaterial())
                 .amount(configItem.getAmount())
                 .name(configItem.getDisplayName())
-                .lore(configItem.getLore())
+                .setNewLore(configItem.getLore())
                 .addGlow(configItem.isGlow());
     }
 
@@ -61,7 +63,7 @@ public class ItemBuilder extends ItemStack {
         return new ItemBuilder(configItem.getMaterial())
                 .amount(configItem.getAmount())
                 .name(configItem.getDisplayName())
-                .lore(configItem.getLore())
+                .setNewLore(configItem.getLore())
                 .addGlow(configItem.isGlow())
                 .color(Color.fromRGB(red, green, blue));
     }
@@ -92,27 +94,6 @@ public class ItemBuilder extends ItemStack {
         return this;
     }
 
-    /**
-     * Adds a new list to the lore of the {@link ItemStack}
-     *
-     * @param text the new line to add
-     * @return this builder for chaining
-     * @since 1.0
-     */
-    public ItemBuilder setLore(final List<String> text) {
-        final ItemMeta meta = getItemMeta();
-        List<String> lore = meta.getLore();
-        if (lore == null) {
-            lore = new ArrayList<>();
-        } else {
-            for (String s : text) {
-                lore.add(Utils.color(s));
-            }
-        }
-        meta.setLore(lore);
-        setItemMeta(meta);
-        return this;
-    }
 
     /**
      * Adds a new line to the lore of the {@link ItemStack}
@@ -141,7 +122,7 @@ public class ItemBuilder extends ItemStack {
      * @return this builder for chaining
      * @since 1.0
      */
-    public ItemBuilder lore(final List<String> texts) {
+    public ItemBuilder setNewLore(final List<String> texts) {
         final ItemMeta meta = getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) {
@@ -165,19 +146,6 @@ public class ItemBuilder extends ItemStack {
      */
     public ItemBuilder durability(final int durability) {
         setDurability((short) durability);
-        return this;
-    }
-
-    /**
-     * Changes the data of the {@link ItemStack}
-     *
-     * @param data the new data to set
-     * @return this builder for chaining
-     * @since 1.0
-     */
-    @SuppressWarnings("deprecation")
-    public ItemBuilder data(final int data) {
-        setData(new MaterialData(getType(), (byte) data));
         return this;
     }
 
@@ -280,7 +248,10 @@ public class ItemBuilder extends ItemStack {
     }
 
     public ItemBuilder addGlow(final boolean glow) {
-        if (glow) addUnsafeEnchantment(Glow.getGlow(), 1);
+        ItemMeta meta = getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        pdc.set(NamespacedKey.minecraft("enchantment_glint_override"), PersistentDataType.BOOLEAN, glow);
+        setItemMeta(meta);
         return this;
     }
 

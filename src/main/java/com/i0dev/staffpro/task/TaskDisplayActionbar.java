@@ -44,9 +44,10 @@ public class TaskDisplayActionbar extends ModuloRepeatTask {
         if (mPlayer.isModmode()) {
             title.add(cnf.actionbarModMode);
         }
-        if (com.massivecraft.factions.entity.MPlayer.get(player).isOverriding()) {
-            title.add(cnf.actionbarOverriding);
-        }
+        // TODO: factions
+//        if (com.massivecraft.factions.entity.MPlayer.get(player).isOverriding()) {
+//            title.add(cnf.actionbarOverriding);
+//        }
         if (mPlayer.isFrozen()) {
             title.add(cnf.actionbarFrozen);
             displayFrozenParticles(player);
@@ -75,7 +76,7 @@ public class TaskDisplayActionbar extends ModuloRepeatTask {
             if (!player.getWorld().getName().equalsIgnoreCase(loc.getWorld().getName())) {
                 break;
             }
-            location.getWorld().spawnParticle(Particle.SNOWBALL, loc, 1);
+            location.getWorld().spawnParticle(Particle.ITEM_SNOWBALL, loc, 1);
         }
         location.getWorld().playSound(player.getLocation(), Sound.BLOCK_SNOW_BREAK, 1, 1);
     }

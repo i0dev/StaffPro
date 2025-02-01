@@ -56,8 +56,10 @@ public class EngineFrozen extends Engine {
 
     @EventHandler
     public void onEnderPearl(ProjectileLaunchEvent e) {
+        if (!(e.getEntity() instanceof Player)) return;
         Player player = (Player) e.getEntity().getShooter();
         MPlayer mPlayer = MPlayer.get(player);
+        if (mPlayer == null) return;
         if (!mPlayer.isFrozen()) return;
         mPlayer.msg(Utils.prefixAndColor(MLang.get().cantDoThatWhileFrozen, new Pair<>("%action%", "throw an ender pearl")));
         e.setCancelled(true);
